@@ -12,6 +12,11 @@ var isDinersClub = function(cardNumber){
   return 38 <= firstTwoNums <= 39 && cardNumber.length === 14;
 }
 
+var isAmex = function(cardNumber){
+  var firstTwoNums = Numbers(cardNumber.toString().slice(0,2));
+  return firstTwoNums === 34 || firstTwoNums === 37 && cardNumber.length === 15;
+}
+
 var detectNetwork = function(cardNumber) {
   // Note: `cardNumber` will always be a string
   // The Diner's Club network always starts with a 38 or 39 and is 14 digits long
