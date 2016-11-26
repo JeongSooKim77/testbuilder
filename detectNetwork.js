@@ -9,12 +9,12 @@
 
 var isDinersClub = function(cardNumber){
   var firstTwoNums = Number(cardNumber.toString().slice(0,2));
-  return 38 <= firstTwoNums <= 39 && cardNumber.length === 14;
+  return 38 <= firstTwoNums && firstTwoNums <= 39 && String(cardNumber).length === 14;
 }
 
 var isAmex = function(cardNumber){
   var firstTwoNums = Number(cardNumber.toString().slice(0,2));
-  return firstTwoNums === 34 || firstTwoNums === 37 && cardNumber.length === 15;
+  return firstTwoNums === 34 || firstTwoNums === 37 && String(cardNumber).length === 15;
 }
 
 var detectNetwork = function(cardNumber) {
