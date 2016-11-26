@@ -13,7 +13,7 @@ var isDinersClub = function(cardNumber){
 }
 
 var isAmex = function(cardNumber){
-  var firstTwoNums = Numbers(cardNumber.toString().slice(0,2));
+  var firstTwoNums = Number(cardNumber.toString().slice(0,2));
   return firstTwoNums === 34 || firstTwoNums === 37 && cardNumber.length === 15;
 }
 
