@@ -139,21 +139,59 @@ describe('MasterCard', function() {
 describe('Discover', function() {
   // Tests without a function will be marked as "pending" and not run
   // Implement these tests (and others) and make them pass!
+  // Discover Card Rules: 
+  // IIN Ranges: 6011, 622126-622925, 644-649, 65
+  // Length(s): 16, 19
   var should = chai.should();
+  var testNumber;
 
   it('has a prefix of 6011 and a length of 16', function() {
-    detectNetwork('6011').should.equal('Discover');
+    detectNetwork('6011123456789012').should.equal('Discover');
   });
   it('has a prefix of 6011 and a length of 19', function() {
-    detectNetwork().should.equal('Discover');
+    detectNetwork('6011234567890123456').should.equal('Discover');
+  });
+  it('has a prefix of between 622126-622925 and a length of 16 or 19', function() {
+    for(var i = 0; i < 3; i++){
+      // Use 3 randomly generated test numbers between the accepted range with which to test.
+      var randNum = Math.floor(Math.random() * 800) + 622126;
+      detectNetwork(randNum + '7890123456').should.equal('Discover');
+      detectNetwork(randNum + '7890123456789').should.equal('Discover');
+    }
+  });
+  it('has a prefix of between 644-649 and a length of 16 or 19', function() {
+    for(var i = 0; i < 3; i++){
+      // Use 3 randomly generated test numbers between the accepted range with which to test.
+      var randNum = Math.floor(Math.random() * 6) + 644;
+      detectNetwork(randNum + '1234567890123').should.equal('Discover');
+      detectNetwork(randNum + '1234567890123456').should.equal('Discover');
+    }
+  });
+  it('has a prefix of 65 and a length of 16', function() {
+    detectNetwork('6511234567890123').should.equal('Discover');
+  });
+  it('has a prefix of 65 and a length of 19', function() {
+    detectNetwork('6511234567890123456').should.equal('Discover');
   });
 
 });
 
 describe('Maestro', function() {
-  // Write full test coverage for the Maestro card
+  // Maestro Card Rules:
+  // IIN ranges: 
+  // Length(s):
+});
+
+describe('should support China UnionPay', function() {
+  // China UnionPay Card Rules:
+  // IIN ranges: 
+  // Length(s):
   
 });
 
-describe('should support China UnionPay')
-describe('should support Switch')
+describe('should support Switch', function() {
+  // Switch Card Rules Card Rules:
+  // IIN ranges: 
+  // Length(s):
+  
+});
