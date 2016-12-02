@@ -143,7 +143,6 @@ describe('Discover', function() {
   // IIN Ranges: 6011, 622126-622925, 644-649, 65
   // Length(s): 16, 19
   var should = chai.should();
-  var testNumber;
 
   it('has a prefix of 6011 and a length of 16', function() {
     detectNetwork('6011123456789012').should.equal('Discover');
@@ -177,21 +176,34 @@ describe('Discover', function() {
 });
 
 describe('Maestro', function() {
+  var should = chai.should();
+
   // Maestro Card Rules:
-  // IIN ranges: 
-  // Length(s):
+  // IIN ranges:  50, 56-69
+  // Length(s): 12-19
+  it('', function(){
+    detectNetwork('num here').should.equal('Maestro')
+  })
 });
 
 describe('should support China UnionPay', function() {
+  var should = chai.should();
+
   // China UnionPay Card Rules:
-  // IIN ranges: 
-  // Length(s):
-  
+  // IIN ranges: 62
+  // Length(s): 16-19
+  it('', function(){
+    detectNetwork('num here').should.equal('China UnionPay')
+  })
 });
 
 describe('should support Switch', function() {
+  var should = chai.should();
+
   // Switch Card Rules Card Rules:
-  // IIN ranges: 
-  // Length(s):
-  
+  // IIN ranges: 4903, 4905, 4911, 4936, 564182, 633110, 6333, 6759
+  // Length(s): 16, 18-19
+  it('', function(){
+    detectNetwork('num here').should.equal('Switch')
+  })
 });
