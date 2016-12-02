@@ -53,7 +53,7 @@ describe('Diner\'s Club', function() {
   });
 
   it('has a prefix of 39 and a length of 14', function() {
-    if (detectNetwork('3934567890123') !== 'Diner\'s Club') {
+    if (detectNetwork('39345678901234') !== 'Diner\'s Club') {
       throw new Error('Test failed');
     }
   });
@@ -64,7 +64,7 @@ describe('American Express', function() {
   // It can get annoying to keep typing the if/throw, so here is a
   // helper function to throw an error if the input statement isn't true. 
   var assert = function(isTrue) {
-    if (isTrue) {
+    if (!isTrue) {
       throw new Error('Test failed');
     }
   };
@@ -125,6 +125,7 @@ describe('MasterCard', function() {
   // these tests to pass using should syntax, refactor your tests to 
   // use either expect or should, but not both. 
   var should = chai.should();
+  // Notice when should is assigned, unlike with assert and expect, the function is called.
   
   it('has a prefix of 54 and a length of 16', function() {
     detectNetwork('5412345678901234').should.equal('MasterCard');
@@ -138,14 +139,20 @@ describe('MasterCard', function() {
 describe('Discover', function() {
   // Tests without a function will be marked as "pending" and not run
   // Implement these tests (and others) and make them pass!
+  var should = chai.should();
 
-  it('has a prefix of 6011 and a length of 16');
-  it('has a prefix of 6011 and a length of 19');
+  it('has a prefix of 6011 and a length of 16', function() {
+    detectNetwork('6011').should.equal('Discover');
+  });
+  it('has a prefix of 6011 and a length of 19', function() {
+    detectNetwork().should.equal('Discover');
+  });
 
 });
 
 describe('Maestro', function() {
   // Write full test coverage for the Maestro card
+  
 });
 
 describe('should support China UnionPay')
