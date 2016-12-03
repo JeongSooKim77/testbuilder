@@ -24,11 +24,14 @@ var isMasterCard = function(cardNumber){
 }
 
 var isDiscover = function(cardNumber){
-  
+  return (cardNumber.slice(0, 4) === '6011' || (Number(cardNumber.slice(0, 6)) >= 622126 && Number(cardNumber.slice(0, 6)) <= 622925) 
+    || (Number(cardNumber.slice(0, 4)) >= 644 && Number(cardNumber.slice(0, 4)) <= 649) || cardNumber.slice(0, 2) === '65')
+    && (cardNumber.length === 16 || cardNumber.length === 19);
 }
 
 var isMaestro = function(cardNumber){
-  
+  return (cardNumber.slice(0, 2) === '50' || (Number(cardNumber.slice(0, 2)) >= 56 && Number(cardNumber.slice(0, 2)) <= 69))
+    && ((cardNumber.length >= 12) && (cardNumber.length <= 19));
 }
 
 var isChinaUnionPay = function(cardNumber){
@@ -56,6 +59,7 @@ var detectNetwork = function(cardNumber) {
     
   } else if(isMasterCard(cardNumber)){
     
+    //Discover must come before China UnionPay
   } else if(isDiscover(cardNumber)){
     
   } else if(isMaestro(cardNumber)){
