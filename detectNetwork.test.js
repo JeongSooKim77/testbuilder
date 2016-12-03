@@ -214,13 +214,20 @@ describe('should support China UnionPay', function() {
   var should = chai.should();
 
   // China UnionPay Card Rules:
-  // IIN ranges: 62
+  // IIN ranges: 624-626, 6282-6288
   // Length(s): 16-19
-  for(var i = 0; i < 3; i++){
+  for(var i = 624; i <= 626; i++){
     var randLengthener = Math.floor(Math.random() * 10000);
-    it('has a prefix of 62 and a randomly chosen length of between 16-19', function(){
-      detectNetwork('621230123456789' + randLengthener).should.equal('China UnionPay');
-    })
+    it('has a prefix of between 624 and 626 and a randomly chosen length of between 16-19', function(){
+      detectNetwork(i + '012345678901' + randLengthener);
+    });
+  }
+
+  for(i = 6282; i <= 6288; i++){
+    var randLengthener = Math.floor(Math.random() * 10000);
+    it('has a prefix of between 6282 and 6288 and a randomly chosen length of between 16-19', function(){
+      detectNetwork(i + '01234567890' + randLengthener);
+    });
   }
 });
 
