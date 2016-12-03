@@ -192,19 +192,19 @@ describe('Maestro', function() {
   // IIN ranges:  50, 56-69
   // Length(s): 12-19
   it('has a prefix of 50 and a length of 12', function(){
-    detectNetwork('501234567890').should.equal('Maestro')
+    detectNetwork('501234567890').should.equal('Maestro');
   })
 
   it('has a prefix of 50 and a length of 19', function(){
-    detectNetwork('5012345678901234567').should.equal('Maestro')
+    detectNetwork('5012345678901234567').should.equal('Maestro');
   })
 
   for(var i = 0; i < 3; i++){
     // Use 3 randomly generated sets of test numbers within the accepted IIN range and card lengths, respectively, with which to test.
     var randPrefix = Math.floor(Math.random() * 14) + 56;
-    var randLengthener = Math.floor(Math.random() * 10000000)
+    var randLengthener = Math.floor(Math.random() * 100000000);
     it('has a randomly chosen prefix of between 56-69 and a randomly chosen length of between 12-19', function(){
-      detectNetwork(randPrefix + '123456789' + randLengthener).should.equal('Maestro')
+      detectNetwork(randPrefix + '123456789' + randLengthener).should.equal('Maestro');
     })
   }
 });
@@ -216,9 +216,12 @@ describe('should support China UnionPay', function() {
   // China UnionPay Card Rules:
   // IIN ranges: 62
   // Length(s): 16-19
-  it('', function(){
-    detectNetwork('num here').should.equal('China UnionPay')
-  })
+  for(var i = 0; i < 3; i++){
+    var randLengthener = Math.floor(Math.random() * 10000);
+    it('has a prefix of 62 and a randomly chosen length of between 16-19', function(){
+      detectNetwork('621230123456789' + randLengthener).should.equal('China UnionPay');
+    })
+  }
 });
 
 
@@ -228,7 +231,20 @@ describe('should support Switch', function() {
   // Switch Card Rules Card Rules:
   // IIN ranges: 4903, 4905, 4911, 4936, 564182, 633110, 6333, 6759
   // Length(s): 16, 18-19
-  it('', function(){
-    detectNetwork('num here').should.equal('Switch')
-  })
+  var iinChoices = [4903, 4905, 4911, 4936, 564182, 633110, 6333, 6759];
+  while(iinChoices.length > 0){
+    var currPrefix = '' + iinChoices[0];
+    var lengths = [16, 18, 19];
+    for(var i = 0; i < 3; i++){
+      var selectedLengthTest = lengths[i];
+      while(currPrefix.length < selectedLengthTest){
+        currPrefix += '0';
+      }
+
+      it('has one of the iinChoices prefixes and a length of 16, 18, or 19', function(){
+        detectNetwork(currPrefix).should.equal('Switch');
+      });
+    }
+    iinChoices.shift();
+  }
 });
