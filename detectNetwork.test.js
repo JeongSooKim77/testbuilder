@@ -189,11 +189,11 @@ describe('Maestro', function() {
   var should = chai.should();
 
   // Maestro Card Rules:
-  // IIN ranges: 5018, 5020, 5038, 6304, 6759, 6761, 6763
+  // IIN ranges: 5018, 5020, 5038, 6304, 6761, 6763
   // Length(s): 12-19
-  var iinChoices = [5018, 5020, 5038, 6304, 6759, 6761, 6763];
-  while(iinChoices){
-    for(var j = 0; j < 3; i++){
+  var iinChoices = [5018, 5020, 5038, 6304, 6761, 6763];
+  while(iinChoices.length){
+    for(var i = 0; i < 3; i++){
       var randLengthener = Math.floor(Math.random() * 100000000);
       it('has a randomly chosen prefix of between 56-69 and a randomly chosen length of between 12-19', function(){
         detectNetwork(iinChoices[0] + '1234567' + randLengthener).should.equal('Maestro');

@@ -30,9 +30,9 @@ var isDiscover = function(cardNumber){
 }
 
 var isMaestro = function(cardNumber){
-  return ((cardNumber.slice(0, 4) === '5018') || (cardNumber.slice(0, 4) === '5020') || (cardNumber.slice(0, 4) === '5038')
-    || (cardNumber.slice(0, 4) === '6304') || (cardNumber.slice(0, 4) === '6759')
-    || (cardNumber.slice(0, 4) === '6761') || (cardNumber.slice(0, 4) === '6763'))
+  return ((cardNumber.slice(0, 4) === '5018') || (cardNumber.slice(0, 4) === '5020') 
+    || (cardNumber.slice(0, 4) === '5038') || (cardNumber.slice(0, 4) === '6304') 
+    || (cardNumber.slice(0, 4) === '6761') || (cardNumber.slice(0, 4) === '6763')) 
     && (cardNumber.length >= 12 && cardNumber.length <= 19);
 }
 
@@ -60,7 +60,6 @@ var detectNetwork = function(cardNumber) {
   } else if(isAmex(cardNumber)){
     return 'American Express';
     //Switch is put before Visa because some Visa cards qualify as Switch cards but not visa versa
-    //Switch must come before Maestro, too
   } else if(isSwitch(cardNumber)){
     return 'Switch';
   } else if(isVisa(cardNumber)){
