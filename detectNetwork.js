@@ -8,21 +8,19 @@
 //   2. The number of digits in the number (called the length)
 
 var isDinersClub = function(cardNumber){
-  var firstTwoNums = cardNumber.slice(0,2);
-  return ('38' <= firstTwoNums && firstTwoNums <= '39') && cardNumber.length === 14;
+  return (cardNumber.slice(0,2) === '38' || cardNumber.slice(0,2) === '39') && cardNumber.length === 14;
 }
 
 var isAmex = function(cardNumber){
-  var firstTwoNums = cardNumber.slice(0,2);
-  return (firstTwoNums === '34' || firstTwoNums === '37') && cardNumber.length === 15;
+  return (cardNumber.slice(0,2) === '34' || cardNumber.slice(0,2) === '37') && cardNumber.length === 15;
 }
 
 var isVisa = function(cardNumber){
-  return cardNumber[0] === 4 && (cardNumber.length === 13 || cardNumber.length === 16 || cardNumber.length === 19);
+  return cardNumber[0] === '4' && (cardNumber.length === 13 || cardNumber.length === 16 || cardNumber.length === 19);
 }
 
 var isMasterCard = function(cardNumber){
-
+  return (Number(cardNumber.slice(0, 2)) >= 51 && Number(cardNumber.slice(0, 2)) <= 55) && cardNumber.length === 16;
 }
 
 var isDiscover = function(cardNumber){
