@@ -8,11 +8,11 @@
 //   2. The number of digits in the number (called the length)
 
 var isDinersClub = function(cardNumber){
-  return (cardNumber.slice(0,2) === '38' || cardNumber.slice(0,2) === '39') && cardNumber.length === 14;
+  return (cardNumber.slice(0, 2) === '38' || cardNumber.slice(0, 2) === '39') && cardNumber.length === 14;
 }
 
 var isAmex = function(cardNumber){
-  return (cardNumber.slice(0,2) === '34' || cardNumber.slice(0,2) === '37') && cardNumber.length === 15;
+  return (cardNumber.slice(0, 2) === '34' || cardNumber.slice(0, 2) === '37') && cardNumber.length === 15;
 }
 
 var isVisa = function(cardNumber){
@@ -35,11 +35,16 @@ var isMaestro = function(cardNumber){
 }
 
 var isChinaUnionPay = function(cardNumber){
-  
+  return cardNumber.slice(0, 2) === '62' && (cardNumber.length === 16 || cardNumber.length === 19);
 }
 
 var isSwitch = function(cardNumber){
-
+  // IIN ranges: 4903, 4905, 4911, 4936, 564182, 633110, 6333, 6759
+  // Length(s): 16, 18-19
+  return (cardNumber.slice(0, 4) === '4903' || cardNumber.slice(0, 4) === '4905' || cardNumber.slice(0, 4) === '4911' 
+    || cardNumber.slice(0, 4) === '4936' || cardNumber.slice(0, 6) === '564182' || cardNumber.slice(0, 6) === '633110' 
+    || cardNumber.slice(0, 4) === '6333' || cardNumber.slice(0, 4) === '6759')
+    && (cardNumber.length === 16 || cardNumber.length === 18 || cardNumber.length === 19);
 }
 
 var detectNetwork = function(cardNumber) {
@@ -54,18 +59,18 @@ var detectNetwork = function(cardNumber) {
     return 'American Express';
     //Switch is put before Visa because some Visa cards qualify as Switch cards but not visa versa
   } else if(isSwitch(cardNumber)){
-    return 'invalid card number';
+    return 'Switch';
   } else if(isVisa(cardNumber)){
-    
+    return 'Visa';
   } else if(isMasterCard(cardNumber)){
-    
+    return 'MasterCard';
     //Discover must come before China UnionPay
   } else if(isDiscover(cardNumber)){
-    
+    return 'Discover';
   } else if(isMaestro(cardNumber)){
-    
+    return 'Maestro';
   } else if(isChinaUnionPay(cardNumber)){
-    
+    return 'China UnionPay';
   }
   
   return 'invalid card number';
