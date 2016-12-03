@@ -189,23 +189,17 @@ describe('Maestro', function() {
   var should = chai.should();
 
   // Maestro Card Rules:
-  // IIN ranges:  50, 56-69
+  // IIN ranges: 5018, 5020, 5038, 6304, 6759, 6761, 6763
   // Length(s): 12-19
-  it('has a prefix of 50 and a length of 12', function(){
-    detectNetwork('501234567890').should.equal('Maestro');
-  })
-
-  it('has a prefix of 50 and a length of 19', function(){
-    detectNetwork('5012345678901234567').should.equal('Maestro');
-  })
-
-  for(var i = 0; i < 3; i++){
-    // Use 3 randomly generated sets of test numbers within the accepted IIN range and card lengths, respectively, with which to test.
-    var randPrefix = Math.floor(Math.random() * 14) + 56;
-    var randLengthener = Math.floor(Math.random() * 100000000);
-    it('has a randomly chosen prefix of between 56-69 and a randomly chosen length of between 12-19', function(){
-      detectNetwork(randPrefix + '123456789' + randLengthener).should.equal('Maestro');
-    })
+  var iinChoices = [5018, 5020, 5038, 6304, 6759, 6761, 6763];
+  while(iinChoices){
+    for(var j = 0; j < 3; i++){
+      var randLengthener = Math.floor(Math.random() * 100000000);
+      it('has a randomly chosen prefix of between 56-69 and a randomly chosen length of between 12-19', function(){
+        detectNetwork(iinChoices[0] + '1234567' + randLengthener).should.equal('Maestro');
+      })
+    }
+    iinChoices.shift();
   }
 });
 
