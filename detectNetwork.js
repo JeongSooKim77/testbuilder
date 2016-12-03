@@ -8,13 +8,37 @@
 //   2. The number of digits in the number (called the length)
 
 var isDinersClub = function(cardNumber){
-  var firstTwoNums = Number(cardNumber.toString().slice(0,2));
-  return 38 <= firstTwoNums && firstTwoNums <= 39 && String(cardNumber).length === 14;
+  var firstTwoNums = cardNumber.slice(0,2);
+  return ('38' <= firstTwoNums && firstTwoNums <= '39') && cardNumber.length === 14;
 }
 
 var isAmex = function(cardNumber){
-  var firstTwoNums = Number(cardNumber.toString().slice(0,2));
-  return firstTwoNums === 34 || firstTwoNums === 37 && String(cardNumber).length === 15;
+  var firstTwoNums = cardNumber.slice(0,2);
+  return (firstTwoNums === '34' || firstTwoNums === '37') && cardNumber.length === 15;
+}
+
+var isVisa = function(cardNumber){
+  return cardNumber[0] === 4 && (cardNumber.length === 13 || cardNumber.length === 16 || cardNumber.length === 19);
+}
+
+var isMasterCard = function(cardNumber){
+
+}
+
+var isDiscover = function(cardNumber){
+  
+}
+
+var isMaestro = function(cardNumber){
+  
+}
+
+var isChinaUnionPay = function(cardNumber){
+  
+}
+
+var isSwitch = function(cardNumber){
+
 }
 
 var detectNetwork = function(cardNumber) {
@@ -27,9 +51,22 @@ var detectNetwork = function(cardNumber) {
   	return 'Diner\'s Club';
   } else if(isAmex(cardNumber)){
     return 'American Express';
-  } else {
+    //Switch is put before Visa because some Visa cards qualify as Switch cards but not visa versa
+  } else if(isSwitch(cardNumber)){
     return 'invalid card number';
+  } else if(isVisa(cardNumber)){
+    
+  } else if(isMasterCard(cardNumber)){
+    
+  } else if(isDiscover(cardNumber)){
+    
+  } else if(isMaestro(cardNumber)){
+    
+  } else if(isChinaUnionPay(cardNumber)){
+    
   }
+  
+  return 'invalid card number';
 };
 
 
