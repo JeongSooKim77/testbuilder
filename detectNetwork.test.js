@@ -60,6 +60,7 @@ describe('Diner\'s Club', function() {
 
 });
 
+
 describe('American Express', function() {
   // It can get annoying to keep typing the if/throw, so here is a
   // helper function to throw an error if the input statement isn't true. 
@@ -77,6 +78,7 @@ describe('American Express', function() {
     assert(detectNetwork('373456789012345') === 'American Express');
   });
 });
+
 
 describe('Visa', function() {
   // Chai is an entire library of helper functions for tests!
@@ -97,6 +99,7 @@ describe('Visa', function() {
     assert(detectNetwork('4123456789012345678') === 'Visa');
   });
 });
+
 
 describe('MasterCard', function() {
   // Chai lets you write more human-readable tests that throw helpful errors.
@@ -136,6 +139,7 @@ describe('MasterCard', function() {
   });
 });
 
+
 describe('Discover', function() {
   // Tests without a function will be marked as "pending" and not run
   // Implement these tests (and others) and make them pass!
@@ -147,33 +151,39 @@ describe('Discover', function() {
   it('has a prefix of 6011 and a length of 16', function() {
     detectNetwork('6011123456789012').should.equal('Discover');
   });
+
   it('has a prefix of 6011 and a length of 19', function() {
     detectNetwork('6011234567890123456').should.equal('Discover');
   });
-  it('has a prefix of between 622126-622925 and a length of 16 or 19', function() {
+
+  it('has a randomly chosen prefix of between 622126-622925 and a length of 16 or 19', function() {
     for(var i = 0; i < 3; i++){
-      // Use 3 randomly generated test numbers between the accepted range with which to test.
-      var randNum = Math.floor(Math.random() * 800) + 622126;
-      detectNetwork(randNum + '7890123456').should.equal('Discover');
-      detectNetwork(randNum + '7890123456789').should.equal('Discover');
+      // Use 3 randomly generated test numbers within the accepted IIN range with which to test.
+      var randPrefix = Math.floor(Math.random() * 800) + 622126;
+      detectNetwork(randPrefix + '7890123456').should.equal('Discover');
+      detectNetwork(randPrefix + '7890123456789').should.equal('Discover');
     }
   });
-  it('has a prefix of between 644-649 and a length of 16 or 19', function() {
+
+  it('has a randomly chosen prefix of between 644-649 and a length of 16 or 19', function() {
     for(var i = 0; i < 3; i++){
-      // Use 3 randomly generated test numbers between the accepted range with which to test.
-      var randNum = Math.floor(Math.random() * 6) + 644;
-      detectNetwork(randNum + '1234567890123').should.equal('Discover');
-      detectNetwork(randNum + '1234567890123456').should.equal('Discover');
+      // Use 3 randomly generated test numbers within the accepted IIN range with which to test.
+      var randPrefix = Math.floor(Math.random() * 6) + 644;
+      detectNetwork(randPrefix + '1234567890123').should.equal('Discover');
+      detectNetwork(randPrefix + '1234567890123456').should.equal('Discover');
     }
   });
+
   it('has a prefix of 65 and a length of 16', function() {
     detectNetwork('6511234567890123').should.equal('Discover');
   });
+
   it('has a prefix of 65 and a length of 19', function() {
     detectNetwork('6511234567890123456').should.equal('Discover');
   });
 
 });
+
 
 describe('Maestro', function() {
   var should = chai.should();
@@ -181,10 +191,24 @@ describe('Maestro', function() {
   // Maestro Card Rules:
   // IIN ranges:  50, 56-69
   // Length(s): 12-19
-  it('', function(){
-    detectNetwork('num here').should.equal('Maestro')
+  it('has a prefix of 50 and a length of 12', function(){
+    detectNetwork('501234567890').should.equal('Maestro')
   })
+
+  it('has a prefix of 50 and a length of 19', function(){
+    detectNetwork('5012345678901234567').should.equal('Maestro')
+  })
+
+  for(var i = 0; i < 3; i++){
+    // Use 3 randomly generated sets of test numbers within the accepted IIN range and card lengths, respectively, with which to test.
+    var randPrefix = Math.floor(Math.random() * 14) + 56;
+    var randLengthener = Math.floor(Math.random() * 10000000)
+    it('has a randomly chosen prefix of between 56-69 and a randomly chosen length of between 12-19', function(){
+      detectNetwork(randPrefix + '123456789' + randLengthener).should.equal('Maestro')
+    })
+  }
 });
+
 
 describe('should support China UnionPay', function() {
   var should = chai.should();
@@ -196,6 +220,7 @@ describe('should support China UnionPay', function() {
     detectNetwork('num here').should.equal('China UnionPay')
   })
 });
+
 
 describe('should support Switch', function() {
   var should = chai.should();
