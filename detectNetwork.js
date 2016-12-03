@@ -30,17 +30,19 @@ var isDiscover = function(cardNumber){
 }
 
 var isMaestro = function(cardNumber){
-  return (cardNumber.slice(0, 2) === '50' || (Number(cardNumber.slice(0, 2)) >= 56 && Number(cardNumber.slice(0, 2)) <= 69))
-    && ((cardNumber.length >= 12) && (cardNumber.length <= 19));
+  return ((cardNumber.slice(0, 4) === '5018') || (cardNumber.slice(0, 4) === '5020') || (cardNumber.slice(0, 4) === '5038')
+    || (cardNumber.slice(0, 4) === '6304') || (cardNumber.slice(0, 4) === '6759')
+    || (cardNumber.slice(0, 4) === '6761') || (cardNumber.slice(0, 4) === '6763'))
+    && (cardNumber.length >= 12 && cardNumber.length <= 19);
 }
 
 var isChinaUnionPay = function(cardNumber){
-  return cardNumber.slice(0, 2) === '62' && (cardNumber.length === 16 || cardNumber.length === 19);
+  return (Number(cardNumber.slice(0, 3) >= 624 && Number(cardNumber.slice(0, 3)) <= 626)) 
+    || (Number(cardNumber.slice(0, 4)) >= 6282 && Number(cardNumber.slice(0, 4)) <= 6286)
+    && (Number(cardNumber.length) >= 16 && Number(cardNumber.length) <= 19);
 }
 
 var isSwitch = function(cardNumber){
-  // IIN ranges: 4903, 4905, 4911, 4936, 564182, 633110, 6333, 6759
-  // Length(s): 16, 18-19
   return (cardNumber.slice(0, 4) === '4903' || cardNumber.slice(0, 4) === '4905' || cardNumber.slice(0, 4) === '4911' 
     || cardNumber.slice(0, 4) === '4936' || cardNumber.slice(0, 6) === '564182' || cardNumber.slice(0, 6) === '633110' 
     || cardNumber.slice(0, 4) === '6333' || cardNumber.slice(0, 4) === '6759')
@@ -58,13 +60,14 @@ var detectNetwork = function(cardNumber) {
   } else if(isAmex(cardNumber)){
     return 'American Express';
     //Switch is put before Visa because some Visa cards qualify as Switch cards but not visa versa
+    //Switch must come before Maestro, too
   } else if(isSwitch(cardNumber)){
     return 'Switch';
   } else if(isVisa(cardNumber)){
     return 'Visa';
   } else if(isMasterCard(cardNumber)){
     return 'MasterCard';
-    //Discover must come before China UnionPay
+    //Discover must come before Maestro and China UnionPay
   } else if(isDiscover(cardNumber)){
     return 'Discover';
   } else if(isMaestro(cardNumber)){
